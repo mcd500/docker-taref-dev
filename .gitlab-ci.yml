@@ -10,7 +10,8 @@ stages:
 
 taref-dev-doxygen:
     stage: create-docker
-    variables: BRANCH=teep-device-dev-keystone-1.0.0
+    variables:
+        BRANCH: teep-device-dev-keystone-1.0.0
     tags:
         - shell117
     script:
@@ -18,7 +19,8 @@ taref-dev-doxygen:
 
 taref-dev-sgx_teep-device:
     stage: create-docker
-    variables: BRANCH=teep-device-dev-keystone-1.0.0
+    variables:
+        BRANCH: teep-device-dev-keystone-1.0.0
     tags:
         - shell117
     script:
@@ -26,7 +28,8 @@ taref-dev-sgx_teep-device:
 
 taref-dev-optee_teep-device:
     stage: create-docker
-    variables: BRANCH=teep-device-dev-keystone-1.0.0
+    variables:
+        BRANCH: teep-device-dev-keystone-1.0.0
     tags:
         - shell117
     script:
@@ -34,7 +37,8 @@ taref-dev-optee_teep-device:
 
 taref-dev-keystone_teep-device:
     stage: create-docker
-    variables: BRANCH=teep-device-dev-keystone-1.0.0
+    variables:
+        BRANCH: teep-device-dev-keystone-1.0.0
     tags:
         - shell117
     script:
