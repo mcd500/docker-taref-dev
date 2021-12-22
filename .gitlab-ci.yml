@@ -49,7 +49,7 @@ docker-push-public:
     tags:
         - shell117
     script:
-	- docker push ${REPO}:doxygen
+        - docker push ${REPO}:doxygen
         - docker push ${REPO}:sgx-teep-device
         - docker push ${REPO}:optee-teep-device
         - docker push ${REPO}:keystone-teep-device
