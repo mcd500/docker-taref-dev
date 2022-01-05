@@ -11,6 +11,7 @@ taref-dev-doxygen:
     tags:
         - shell117
     script:
+        - echo "$CI_PROJECT_DIR"
         - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:doxygen ./doxygen
         - docker push ${REPO}:doxygen
     artifacts:
