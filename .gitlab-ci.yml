@@ -1,5 +1,6 @@
 variables:
     REPO: trasioteam/taref-dev
+    DOCS_DIR: /home/user/ta-ref/docs 
 
 before_script:
     - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASSWD}
@@ -12,6 +13,10 @@ taref-dev-doxygen:
     script:
         - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:doxygen ./doxygen
         - docker push ${REPO}:doxygen
+    artifacts:
+        paths:
+            - ${DOCS_DIR}/ta-ref.pdf
+        expire_in: 1 week
 
 taref-dev-sgx_teep-device:
     variables:
