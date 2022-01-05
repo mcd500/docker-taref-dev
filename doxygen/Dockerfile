@@ -19,6 +19,8 @@ ENV TA_DIR=/home/user/ta-ref
 ENV TEE=keystone
 WORKDIR $USER_DIR
 
+# Clond the ta-ref and the given branch
+ARG BRANCH=
 RUN git clone https://192.168.100.100/rinkai/ta-ref.git && \
     cd $TA_DIR && \
     git checkout ${BRANCH}
