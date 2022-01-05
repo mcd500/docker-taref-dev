@@ -1,5 +1,5 @@
 variables:
-    REPO: aistcpsec/taref-dev
+    REPO: trasioteam/taref-dev
 
 before_script:
     - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASSWD}
