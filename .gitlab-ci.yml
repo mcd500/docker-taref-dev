@@ -10,13 +10,13 @@ taref-dev-doxygen:
         BRANCH: teep-master
     tags:
         - shell117
-    script:
-        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:doxygen ./doxygen
-        - docker push ${REPO}:doxygen
     artifacts:
         paths:
             - ${DOCS_DIR}/ta-ref.pdf
         expire_in: 1 week
+    script:
+        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:doxygen ./doxygen
+        - docker push ${REPO}:doxygen
 
 taref-dev-sgx_teep-device:
     variables:
