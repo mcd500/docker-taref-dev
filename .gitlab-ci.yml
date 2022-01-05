@@ -1,55 +1,41 @@
 variables:
-    REPO: trasioteam/taref-dev
+    REPO: aistcpsec/taref-dev
 
 before_script:
     - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASSWD}
 
-stages:
-    - create-docker
-    - push-public
-
 taref-dev-doxygen:
-    stage: create-docker
     variables:
-        BRANCH: teep-device-dev-keystone-1.0.0
+        BRANCH: teep-master
     tags:
         - shell117
     script:
         - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --rm -t ${REPO}:doxygen ./doxygen
+        - docker push ${REPO}:doxygen
 
 taref-dev-sgx_teep-device:
-    stage: create-docker
     variables:
-        BRANCH: teep-device-dev-keystone-1.0.0
+        BRANCH: teep-master
     tags:
-        - shell117
+        - shell115
     script:
         - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --rm -t ${REPO}:sgx-teep-device ./sgx/teep-device-dev
+        - docker push ${REPO}:sgx-teep-device
 
 taref-dev-optee_teep-device:
-    stage: create-docker
     variables:
-        BRANCH: teep-device-dev-keystone-1.0.0
+        BRANCH: teep-master
     tags:
         - shell117
     script:
         - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --rm -t ${REPO}:optee-teep-device ./optee/teep-device-dev
+        - docker push ${REPO}:optee-teep-device
 
 taref-dev-keystone_teep-device:
-    stage: create-docker
     variables:
-        BRANCH: teep-device-dev-keystone-1.0.0
+        BRANCH: teep-master
     tags:
-        - shell117
+        - shell121
     script:
         - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --rm -t ${REPO}:keystone-teep-device ./keystone/teep-device-dev
-
-docker-push-public:
-    stage: push-public
-    tags:
-        - shell117
-    script:
-        - docker push ${REPO}:doxygen
-        - docker push ${REPO}:sgx-teep-device
-        - docker push ${REPO}:optee-teep-device
         - docker push ${REPO}:keystone-teep-device
