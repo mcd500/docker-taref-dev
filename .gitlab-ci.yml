@@ -12,7 +12,7 @@ taref-dev-doxygen:
     tags:
         - shell117
     script:
-        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:doxygen ./doxygen
+        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:doxygen ./doxygen/teep-master
         - docker push ${REPO}:doxygen
         - docker run --name $CI_PIPELINE_ID -d ${REPO}:doxygen
         - docker wait $CI_PIPELINE_ID
@@ -22,29 +22,29 @@ taref-dev-doxygen:
             - $CI_PROJECT_DIR/${TA_REF_PDF}
         expire_in: 1 week
 
-taref-dev-sgx_teep-device:
+taref-dev-sgx:
     variables:
         BRANCH: teep-master
     tags:
         - shell115
     script:
-        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --rm -t ${REPO}:sgx-teep-device ./sgx/teep-device-dev
-        - docker push ${REPO}:sgx-teep-device
+        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --rm -t ${REPO}:sgx ./sgx/teep-master
+        - docker push ${REPO}:sgx
 
-taref-dev-optee_teep-device:
+taref-dev-optee:
     variables:
         BRANCH: teep-master
     tags:
         - shell117
     script:
-        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --rm -t ${REPO}:optee-teep-device ./optee/teep-device-dev
-        - docker push ${REPO}:optee-teep-device
+        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --rm -t ${REPO}:optee ./optee/teep-master
+        - docker push ${REPO}:optee
 
-taref-dev-keystone_teep-device:
+taref-dev-keystone:
     variables:
         BRANCH: teep-master
     tags:
         - shell121
     script:
-        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --rm -t ${REPO}:keystone-teep-device ./keystone/teep-device-dev
-        - docker push ${REPO}:keystone-teep-device
+        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --rm -t ${REPO}:keystone ./keystone/teep-master
+        - docker push ${REPO}:keystone
