@@ -1,5 +1,7 @@
 variables:
     REPO: trasioteam/taref-dev
+    TA_REF_DOCS_DIR: /home/user/ta-ref/docs
+    TA_REF_PDF: ta-ref.pdf
 
 before_script:
     - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASSWD}
@@ -14,10 +16,10 @@ taref-dev-doxygen:
         - docker push ${REPO}:doxygen
         - docker run --name $CI_PIPELINE_ID -d ${REPO}:doxygen
         - docker wait $CI_PIPELINE_ID
-        - docker cp $CI_PIPELINE_ID:/home/user/ta-ref/docs/ta-ref.pdf $CI_PROJECT_DIR/ta-ref.pdf
+        - docker cp $CI_PIPELINE_ID:${TA_REF_DOCS_DIR}/${TA_REF_PDF} $CI_PROJECT_DIR/${TA_REF_PDF}
     artifacts:
         paths:
-            - $CI_PROJECT_DIR/ta-ref.pdf
+            - $CI_PROJECT_DIR/${TA_REF_PDF}
         expire_in: 1 week
 
 taref-dev-sgx_teep-device:

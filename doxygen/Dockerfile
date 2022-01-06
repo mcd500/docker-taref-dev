@@ -30,9 +30,3 @@ WORKDIR $TA_DIR
 
 # Make the docs
 RUN make docs
-
-# Set artifacts dir
-ENV ARTIFACTS_DIR=${USER_DIR}/artifacts
-
-# Copy to Artifacts dir
-RUN cp docs/ta-ref.pdf ${ARTIFACTS_DIR}
