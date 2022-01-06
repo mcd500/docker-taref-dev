@@ -13,7 +13,7 @@ RUN echo https://gitlab-ci-token:${CI_JOB_TOKEN}@192.168.100.100:443 >> ~/.git-c
 RUN echo https://gitlab-ci-token:${CI_JOB_TOKEN}@192.168.100.100 >> ~/.git-credentials
 
 # Set TA-REF dir
-ENV TA_DIR=/home/user/ta-ref
+ENV TA_DIR=${USER_DIR}/ta-ref
 
 # Export TEE Variable, else makefile would throw error
 ENV TEE=keystone
@@ -22,7 +22,7 @@ WORKDIR $USER_DIR
 # Clond the ta-ref and the given branch
 ARG BRANCH=
 RUN git clone https://192.168.100.100/rinkai/ta-ref.git && \
-    cd $TA_DIR && \
+    cd ${TA_DIR} && \
     git checkout ${BRANCH}
 
 # Set the workdir
@@ -30,3 +30,9 @@ WORKDIR $TA_DIR
 
 # Make the docs
 RUN make docs
+
+# Set artifacts dir
+ENV ARTIFACTS_DIR=${USER_DIR}/artifacts
+
+# Copy to Artifacts dir
+RUN cp docs/ta-ref.pdf ${ARTIFACTS_DIR}
