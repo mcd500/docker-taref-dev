@@ -29,8 +29,8 @@ RUN git clone https://192.168.100.100/rinkai/ta-ref.git && \
 WORKDIR $TAREF_DIR
 
 # Source the environment variables
-RUN source /opt/intel/sgxsdk/environment
-RUN source env/sgx_x64.sh
+RUN . /opt/intel/sgxsdk/environment
+RUN . env/sgx_x64.sh
 
 # Build the ta-ref
 RUN make build

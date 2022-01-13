@@ -20,6 +20,7 @@ WORKDIR $USER_DIR
 
 # Clond the ta-ref and the given branch
 ARG BRANCH=
+ARG DEBUG_DATE=
 RUN git clone https://192.168.100.100/rinkai/ta-ref.git && \
     cd ${TAREF_DIR} && \
     git checkout ${BRANCH}
@@ -27,9 +28,11 @@ RUN git clone https://192.168.100.100/rinkai/ta-ref.git && \
 # Set the workdir
 WORKDIR $TAREF_DIR
 
+ARG DEBUG_DATE=
 # Source the environment variables
-RUN source env/keystone.sh 
+RUN . env/keystone.sh 
 
+ARG DEBUG_DATE=
 # Build the ta-ref
 RUN make build
 

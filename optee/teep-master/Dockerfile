@@ -18,6 +18,7 @@ ENV TAREF_DIR=${USER_DIR}/ta-ref
 # Set the work directory
 WORKDIR $USER_DIR
 
+ARG DEBUG_DATE=
 # Clond the ta-ref and the given branch
 ARG BRANCH=
 RUN git clone https://192.168.100.100/rinkai/ta-ref.git && \
@@ -27,9 +28,11 @@ RUN git clone https://192.168.100.100/rinkai/ta-ref.git && \
 # Set the workdir
 WORKDIR $TAREF_DIR
 
+ARG DEBUG_DATE=
 # Source the environment variables
-RUN source env/optee_qemu.sh 
+RUN . env/optee_qemu.sh 
 
+ARG DEBUG_DATE=
 # Build the ta-ref
 RUN make build
 
