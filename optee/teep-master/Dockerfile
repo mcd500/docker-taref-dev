@@ -32,7 +32,7 @@ ENV TEE=optee
 ENV MACHINE=SIM
 ENV ENABLE_TEE_ENVS=1
 ENV OPTEE_OUTBR_DIR=${OPTEE_DIR}/out-br
-ENV TA_DEV_DIR=${OPTEE_DIR}/optee_os/out/arm/ENV-ta_arm64
+ENV TA_DEV_DIR=${OPTEE_DIR}/optee_os/out/arm/export-ta_arm64
 
 # Build the ta-ref
 RUN make build
