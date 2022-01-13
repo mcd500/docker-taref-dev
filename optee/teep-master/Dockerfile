@@ -27,8 +27,10 @@ RUN git clone https://192.168.100.100/rinkai/ta-ref.git && \
 # Set the workdir
 WORKDIR $TAREF_DIR
 
+SHELL ["/bin/bash", "-c"]
+
 # Source the environment variables
-RUN  ["/bin/bash", "-c", "source env/optee_qemu.sh"]
+RUN source env/optee_qemu.sh
 
 # Build the ta-ref
 RUN make build
