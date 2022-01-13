@@ -28,7 +28,7 @@ taref-dev-sgx:
     tags:
         - shell115
     script:
-        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:sgx ./sgx/teep-master
+        - docker build --no-cache --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:sgx ./sgx/teep-master
         - docker push ${REPO}:sgx
 
 taref-dev-optee:
@@ -37,7 +37,7 @@ taref-dev-optee:
     tags:
         - shell117
     script:
-        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:optee ./optee/teep-master
+        - docker build --no-cache --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:optee ./optee/teep-master
         - docker push ${REPO}:optee
 
 taref-dev-keystone:
@@ -46,5 +46,5 @@ taref-dev-keystone:
     tags:
         - shell121
     script:
-        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:keystone ./keystone/teep-master
+        - docker build --no-cache --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:keystone ./keystone/teep-master
         - docker push ${REPO}:keystone
