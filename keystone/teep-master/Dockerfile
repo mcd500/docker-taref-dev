@@ -28,7 +28,24 @@ RUN git clone https://192.168.100.100/rinkai/ta-ref.git && \
 WORKDIR $TAREF_DIR
 
 # Source the environment variables using /bin/bash
-RUN  ["/bin/bash", "-c", "env/keystone.sh"]
+#RUN  ["/bin/bash", "-c", "env/keystone.sh"]
+ENV TEE=keystone
+ENV ARCH=riscv64
+ENV TOOLPREFIX=${ARCH}-unknown-linux-gnu-
+ENV PATH=${KEYSTONE_DIR}/qemu/riscv64-softmmu:${PATH}
+ENV ENABLE_TEE_ENVS=1
+ENV FLATCC_DIR=${KEYEDGE_DIR}/flatcc
+ENV KEYEDGE_BIN=${KEYEDGE_DIR}/bin/keyedge
+ENV KEYEDGE_INCLUDE_DIR=${KEYEDGE_DIR}/target/include
+ENV FLATCC_INCLUDE_DIR=${FLATCC_DIR}/include/flatcc
+ENV FLATCC_BIN=${FLATCC_DIR}/bin/flatcc
+
+ENV KEYSTONE_SDK_DIR=${KEYSTONE_DIR}/sdk/build64
+
+ENV CPATH=${KEYSTONE_SDK_DIR}/include/edge:${KEYSTONE_SDK_DIR}/include/host:${KEYSTONE_SDK_DIR}/include:${CPATH}
+
+ENV BUILDROOT_OVERLAY_DIR=${KEYSTONE_DIR}/build/overlay
+ENV KEYSTONE_DRIVER_MODULE=${BUILDROOT_OVERLAY_DIR}/root/keystone-driver.ko
 
 # Build the ta-ref
 RUN make build
