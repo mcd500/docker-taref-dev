@@ -26,7 +26,7 @@ taref-dev-sgx:
     variables:
         BRANCH: teep-master
     tags:
-        - shell117
+        - shell115
     script:
         - docker build --no-cache --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:sgx ./sgx/teep-master
         - docker push ${REPO}:sgx
@@ -44,7 +44,7 @@ taref-dev-keystone:
     variables:
         BRANCH: teep-master
     tags:
-        - shell117
+        - shell121
     script:
         - docker build --no-cache --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:keystone ./keystone/teep-master
         - docker push ${REPO}:keystone
