@@ -32,6 +32,8 @@ ENV TEE=optee
 ENV MACHINE=SIM
 ENV ENABLE_TEE_ENVS=1
 ENV OPTEE_OUTBR_DIR=${OPTEE_DIR}/out-br
+ENV TOOLPREFIX=${TOOLCHAIN_DIR}/aarch64/bin/aarch64-linux-gnu-
+ENV TOOLPREFIX32=${TOOLCHAIN_DIR}/aarch32/bin/arm-linux-gnueabihf-
 ENV TA_DEV_DIR=${OPTEE_DIR}/optee_os/out/arm/export-ta_arm64
 
 # Build the ta-ref
