@@ -35,7 +35,7 @@ ENV OPTEE_OUTBR_DIR=${OPTEE_DIR}/out-br
 ENV TA_DEV_DIR=${OPTEE_DIR}/optee_os/out/arm/export-ta_arm64
 
 # Build the ta-ref
-RUN make build
+RUN make TEST_DIR=test_hello build
 
 # Build the test_hello TA
 RUN make TEST_DIR=test_hello test-bin run
