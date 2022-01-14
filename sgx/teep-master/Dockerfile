@@ -36,7 +36,7 @@ RUN  ["/bin/bash", "-c", "source env/sgx_x64.sh"]
 RUN make build
 
 # Build the test_hello TA
-RUN make test-bin MACHINE=NUC TEST_DIR=test_hello
+RUN make TEST_DIR=test_hello test-bin run
 
 # Build the test_gp TA
-RUN make test-bin MACHINE=NUC TEST_DIR=test_gp
+RUN make TEST_DIR=test_gp test-bin run

@@ -51,7 +51,7 @@ ENV KEYSTONE_DRIVER_MODULE=${BUILDROOT_OVERLAY_DIR}/root/keystone-driver.ko
 RUN make build
 
 # Build the test_hello TA
-RUN make test-bin MACHINE=HIFIVE TEST_DIR=test_hello
+RUN make TEST_DIR=test_hello test-bin
 
 # Build the test_gp TA
-RUN make test-bin MACHINE=HIFIVE TEST_DIR=test_gp
+RUN make TEST_DIR=test_gp test-bin

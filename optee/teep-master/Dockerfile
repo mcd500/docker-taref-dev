@@ -38,7 +38,7 @@ ENV TA_DEV_DIR=${OPTEE_DIR}/optee_os/out/arm/export-ta_arm64
 RUN make build
 
 # Build the test_hello TA
-RUN make test-bin MACHINE=RPI3 TEST_DIR=test_hello
+RUN make TEST_DIR=test_hello test-bin run
 
 # Build the test_gp TA
-RUN make test-bin MACHINE=RPI3 TEST_DIR=test_gp
+RUN make TEST_DIR=test_gp test-bin run
