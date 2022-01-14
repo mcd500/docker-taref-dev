@@ -33,7 +33,7 @@ RUN  ["/bin/bash", "-c", "source /opt/intel/sgxsdk/environment"]
 RUN  ["/bin/bash", "-c", "source env/sgx_x64.sh"]
 
 # Build the ta-ref
-RUN make build
+RUN make TEST_DIR=test_hello build
 
 # Build the test_hello TA
 RUN make TEST_DIR=test_hello test-bin run

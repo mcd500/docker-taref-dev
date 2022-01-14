@@ -48,7 +48,7 @@ ENV BUILDROOT_OVERLAY_DIR=${KEYSTONE_DIR}/build/overlay
 ENV KEYSTONE_DRIVER_MODULE=${BUILDROOT_OVERLAY_DIR}/root/keystone-driver.ko
 
 # Build the ta-ref
-RUN make build
+RUN make TEST_DIR=test_hello build
 
 # Build the test_hello TA
 RUN make TEST_DIR=test_hello test-bin
