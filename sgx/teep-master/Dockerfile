@@ -23,7 +23,9 @@ WORKDIR $USER_DIR
 ARG BRANCH=
 RUN git clone https://192.168.100.100/rinkai/ta-ref.git && \
     cd ${TAREF_DIR} && \
-    git checkout ${BRANCH}
+    git checkout ${BRANCH} && \
+    git submodule sync --recursive && \
+    git submodule update --init --recursive
 
 # Set the workdir
 WORKDIR $TAREF_DIR
