@@ -46,11 +46,8 @@ ENV CPATH=${KEYSTONE_SDK_DIR}/include/edge:${KEYSTONE_SDK_DIR}/include/host:${KE
 ENV BUILDROOT_OVERLAY_DIR=${KEYSTONE_DIR}/build/overlay
 ENV KEYSTONE_DRIVER_MODULE=${BUILDROOT_OVERLAY_DIR}/root/keystone-driver.ko
 
-# Build the ta-ref
-RUN make TEST_DIR=test_hello build
-
 # Build the test_hello TA
-RUN make TEST_DIR=test_hello test-bin
+RUN make build test-bin MACHINE=HIFIVE TEST_DIR=test_hello
 
 # Build the test_gp TA
-RUN make TEST_DIR=test_gp test-bin
+RUN make build test-bin MACHINE=HIFIVE TEST_DIR=test_gp
