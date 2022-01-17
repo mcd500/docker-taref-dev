@@ -48,10 +48,10 @@ ENV SGX_CXXFLAGS="${SGX_FLAGS} -Wnon-virtual-dtor -std=c++11"
 ENV CPATH=${SGX_INCLUDE_DIR}
 
 # Build the ta-ref
-RUN make TEST_DIR=test_hello build
+# RUN make TEST_DIR=test_hello build
 
 # Build the test_hello TA
-RUN make TEST_DIR=test_hello test-bin run
+RUN make build test-bin MACHINE=NUC TEST_DIR=test_hello
 
 # Build the test_gp TA
-RUN make TEST_DIR=test_gp test-bin run
+RUN make build test-bin MACHINE=NUC TEST_DIR=test_gp
