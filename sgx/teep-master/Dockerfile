@@ -30,9 +30,7 @@ RUN git clone https://192.168.100.100/rinkai/ta-ref.git && \
 # Set the workdir
 WORKDIR $TAREF_DIR
 
-# Source the environment variables
-#RUN  ["/bin/bash", "-c", "source /opt/intel/sgxsdk/environment"]
-#RUN  ["/bin/bash", "-c", "source env/sgx_x64.sh"]
+# Source the environment variables from env/sgx_x64.sh
 ENV ENABLE_TEE_ENVS=1
 ENV TEE=sgx
 ENV ARCH=x64
@@ -46,6 +44,11 @@ ENV SGX_CFLAGS="${SGX_FLAGS} -Wjump-misses-init -Wstrict-prototypes -Wunsuffixed
 ENV SGX_CXXFLAGS="${SGX_FLAGS} -Wnon-virtual-dtor -std=c++11"
 
 ENV CPATH=${SGX_INCLUDE_DIR}
+
+# Source the /opt/intel/sgxsdx/environment
+ENV PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$SGX_SDK/pkgconfig
+ENV LD_LIBRARY_PATH=$SGX_SDK/sdk_libs
+
 
 # Build the test_hello TA
 RUN make build test-bin MACHINE=NUC TEST_DIR=test_hello
