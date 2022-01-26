@@ -12,6 +12,7 @@ taref-dev-doxygen:
     tags:
         - shell117
     script:
+        - docker pull aistcpsec/tee-distro-dev:doxygen-20.04
         - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:doxygen ./doxygen/teep-master
         - docker push ${REPO}:doxygen
         - docker run --name $CI_PIPELINE_ID -d ${REPO}:doxygen
@@ -28,6 +29,7 @@ taref-dev-sgx:
     tags:
         - shell115
     script:
+        - docker pull aistcpsec/tee-dev:sgx-2.10
         - docker build --no-cache --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:sgx ./sgx/teep-master
         - docker push ${REPO}:sgx
 
@@ -37,6 +39,7 @@ taref-dev-optee:
     tags:
         - shell117
     script:
+        - docker pull aistcpsec/tee-dev:optee-3.10.0
         - docker build --no-cache --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:optee ./optee/teep-master
         - docker push ${REPO}:optee
 
@@ -46,5 +49,6 @@ taref-dev-keystone:
     tags:
         - shell121
     script:
+        - docker pull aistcpsec/tee-dev:keystone-1.0.0
         - docker build --no-cache --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:keystone ./keystone/teep-master
         - docker push ${REPO}:keystone
