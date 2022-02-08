@@ -3,6 +3,8 @@ variables:
     TA_REF_DOCS_DIR: /home/user/ta-ref/docs
     TA_REF_PDF: ta-ref.pdf
     TA_REF_SPEC_PDF: ta-ref-spec.pdf
+    TA_REF_HTML: html_readme.tar.gz
+    TA_REF_SPEC_HTML: html_spec.tar.gz
 
 before_script:
     - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASSWD}
@@ -20,10 +22,14 @@ taref-dev-doxygen:
         - docker wait $CI_PIPELINE_ID
         - docker cp $CI_PIPELINE_ID:${TA_REF_DOCS_DIR}/${TA_REF_PDF} $CI_PROJECT_DIR/${TA_REF_PDF}
         - docker cp $CI_PIPELINE_ID:${TA_REF_DOCS_DIR}/${TA_REF_SPEC_PDF} $CI_PROJECT_DIR/${TA_REF_SPEC_PDF}
+        - docker cp $CI_PIPELINE_ID:${TA_REF_DOCS_DIR}/${TA_REF_HTML} $CI_PROJECT_DIR/${TA_REF_HTML}
+        - docker cp $CI_PIPELINE_ID:${TA_REF_DOCS_DIR}/${TA_REF_SPEC_HTML} $CI_PROJECT_DIR/${TA_REF_SPEC_HTML}
     artifacts:
         paths:
             - $CI_PROJECT_DIR/${TA_REF_PDF}
             - $CI_PROJECT_DIR/${TA_REF_SPEC_PDF}
+            - $CI_PROJECT_DIR/${TA_REF_HTML}
+            - $CI_PROJECT_DIR/${TA_REF_SPEC_HTML}
         expire_in: 1 week
 
 taref-dev-sgx:
