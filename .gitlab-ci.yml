@@ -5,6 +5,9 @@ variables:
     TA_REF_SPEC_PDF: ta-ref-spec.pdf
     TA_REF_HTML: html_readme.tar.gz
     TA_REF_SPEC_HTML: html_spec.tar.gz
+    ROOTFS_DIR: /home/user/optee/out-br/images
+    ROOTFS_FILE: rootfs.cpio.gz
+    NFS_DIR: /home/aist/nfs
 
 before_script:
     - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASSWD}
@@ -61,3 +64,20 @@ taref-dev-keystone:
         - docker pull aistcpsec/tee-dev:keystone-1.0.0
         - docker build --no-cache --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:keystone ./keystone/teep-master
         - docker push ${REPO}:keystone
+
+taref-dev-optee_rpi3_netboot:
+    variables:
+        BRANCH: teep-master
+    tags:
+        - shell117
+    script:
+        - docker pull aistcpsec/tee-dev:optee-3.10.0
+        - docker build --no-cache --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:optee_rpi3_netboot ./optee_rpi3_netboot/teep-master
+        - docker push ${REPO}:optee_rpi3_netboot
+        - docker run --name $CI_PIPELINE_ID -d ${REPO}:optee_rpi3_netboot
+        - docker wait $CI_PIPELINE_ID
+        - docker cp $CI_PIPELINE_ID:${ROOTFS_DIR}/${ROOTFS_FILE} $NFS_DIR/${ROOTFS_FILE}
+    artifacts:
+        paths:
+            - $NFS_DIR/${ROOTFS_FILE}
+        expire_in: 1 week
