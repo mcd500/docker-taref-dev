@@ -69,7 +69,7 @@ taref-dev-optee_rpi3_netboot:
     variables:
         BRANCH: teep-master
     tags:
-        - shell117
+        - nfsroot117
     script:
         - docker pull aistcpsec/tee-dev:optee-3.10.0
         - docker build --no-cache --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:optee_rpi3_netboot ./optee_rpi3_netboot/teep-master
