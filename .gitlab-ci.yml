@@ -7,7 +7,6 @@ variables:
     TA_REF_SPEC_HTML: html_spec.tar.gz
     ROOTFS_DIR: /home/user/optee/out-br/images
     ROOTFS_FILE: rootfs.cpio.gz
-    NFS_DIR: /home/aist/nfs
     NETBOOT_CONT_NME: optee-netboot-container
 
 before_script:
@@ -77,8 +76,8 @@ taref-dev-optee_rpi3_netboot:
         - docker push ${REPO}:optee_rpi3_netboot
         - docker run --name $NETBOOT_CONT_NME -d ${REPO}:optee_rpi3_netboot
         - docker wait $NETBOOT_CONT_NME
-        - sudo docker cp $NETBOOT_CONT_NME:${ROOTFS_DIR}/${ROOTFS_FILE} $NFS_DIR/${ROOTFS_FILE}
+        - sudo docker cp $NETBOOT_CONT_NME:${ROOTFS_DIR}/${ROOTFS_FILE} $CI_PROJECT_DIR/${ROOTFS_FILE}
     artifacts:
         paths:
-            - $NFS_DIR/${ROOTFS_FILE}
+            - $CI_PROJECT_DIR/${ROOTFS_FILE}
         expire_in: 1 week
