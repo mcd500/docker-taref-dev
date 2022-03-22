@@ -76,7 +76,7 @@ taref-dev-optee_rpi3_netboot:
         - docker push ${REPO}:optee_rpi3_netboot
         - docker run --name $CI_PIPELINE_ID -d ${REPO}:optee_rpi3_netboot
         - docker wait $CI_PIPELINE_ID
-        - docker cp $CI_PIPELINE_ID:${ROOTFS_DIR}/${ROOTFS_FILE} $NFS_DIR/${ROOTFS_FILE}
+        - sudo docker cp $CI_PIPELINE_ID:${ROOTFS_DIR}/${ROOTFS_FILE} $NFS_DIR/${ROOTFS_FILE}
     artifacts:
         paths:
             - $NFS_DIR/${ROOTFS_FILE}
