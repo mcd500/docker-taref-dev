@@ -42,7 +42,7 @@ taref-dev-sgx:
         - fast-shells
     script:
         - docker pull aistcpsec/tee-dev:sgx-2.10
-        - docker build --no-cache --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:sgx ./sgx/teep-master
+        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:sgx ./sgx/teep-master
         - docker push ${REPO}:sgx
 
 taref-dev-optee:
@@ -52,7 +52,7 @@ taref-dev-optee:
         - fast-shells
     script:
         - docker pull aistcpsec/tee-dev:optee-3.10.0
-        - docker build --no-cache --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:optee ./optee/teep-master
+        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:optee ./optee/teep-master
         - docker push ${REPO}:optee
 
 taref-dev-keystone:
@@ -62,7 +62,7 @@ taref-dev-keystone:
         - fast-shells
     script:
         - docker pull aistcpsec/tee-dev:keystone-1.0.0
-        - docker build --no-cache --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:keystone ./keystone/teep-master
+        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:keystone ./keystone/teep-master
         - docker push ${REPO}:keystone
 
 taref-dev-optee_rpi3_netboot:
@@ -72,9 +72,10 @@ taref-dev-optee_rpi3_netboot:
         - fast-shells
     script:
         - docker pull aistcpsec/tee-dev:optee-3.10.0
-        - docker build --no-cache --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:optee_rpi3_netboot ./optee_rpi3_netboot/teep-master
+        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:optee_rpi3_netboot ./optee_rpi3_netboot/teep-master
         - docker push ${REPO}:optee_rpi3_netboot
-        - docker stop $NETBOOT_CONT_NME; docker rm $NETBOOT_CONT_NME
+        - docker stop $NETBOOT_CONT_NME || true
+        - docker rm $NETBOOT_CONT_NME || true
         - docker run --name $NETBOOT_CONT_NME -itd ${REPO}:optee_rpi3_netboot
         - docker wait $NETBOOT_CONT_NME
         - sudo docker cp $NETBOOT_CONT_NME:${ROOTFS_DIR}/${ROOTFS_FILE} $CI_PROJECT_DIR/${ROOTFS_FILE}
