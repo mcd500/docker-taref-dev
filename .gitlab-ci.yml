@@ -16,7 +16,7 @@ taref-dev-doxygen:
     variables:
         BRANCH: teep-master
     tags:
-        - shell117
+        - fast-shells
     script:
         - docker pull aistcpsec/tee-distro-dev:doxygen-20.04
         - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:doxygen ./doxygen/teep-master
@@ -39,7 +39,7 @@ taref-dev-sgx:
     variables:
         BRANCH: teep-master
     tags:
-        - shell115
+        - fast-shells
     script:
         - docker pull aistcpsec/tee-dev:sgx-2.10
         - docker build --no-cache --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:sgx ./sgx/teep-master
@@ -49,7 +49,7 @@ taref-dev-optee:
     variables:
         BRANCH: teep-master
     tags:
-        - shell117
+        - fast-shells
     script:
         - docker pull aistcpsec/tee-dev:optee-3.10.0
         - docker build --no-cache --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:optee ./optee/teep-master
@@ -59,7 +59,7 @@ taref-dev-keystone:
     variables:
         BRANCH: teep-master
     tags:
-        - shell121
+        - fast-shells
     script:
         - docker pull aistcpsec/tee-dev:keystone-1.0.0
         - docker build --no-cache --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:keystone ./keystone/teep-master
@@ -69,7 +69,7 @@ taref-dev-optee_rpi3_netboot:
     variables:
         BRANCH: teep-master
     tags:
-        - nfsroot117
+        - fast-shells
     script:
         - docker pull aistcpsec/tee-dev:optee-3.10.0
         - docker build --no-cache --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:optee_rpi3_netboot ./optee_rpi3_netboot/teep-master
