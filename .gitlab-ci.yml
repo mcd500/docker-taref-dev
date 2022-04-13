@@ -77,7 +77,7 @@ taref-dev-optee_rpi3_netboot:
         - docker stop $NETBOOT_CONT_NME || true
         - docker rm $NETBOOT_CONT_NME || true
         - docker run --name $NETBOOT_CONT_NME -itd ${REPO}:optee_rpi3_netboot
-        - docker wait $NETBOOT_CONT_NME
+#        - docker wait $NETBOOT_CONT_NME
         - sudo docker cp $NETBOOT_CONT_NME:${ROOTFS_DIR}/${ROOTFS_FILE} $CI_PROJECT_DIR/${ROOTFS_FILE}
     artifacts:
         paths:
