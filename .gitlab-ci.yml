@@ -74,7 +74,8 @@ taref-dev-optee_rpi3_netboot:
         - docker pull aistcpsec/tee-dev:optee-3.10.0
         - docker build --no-cache --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:optee_rpi3_netboot ./optee_rpi3_netboot/teep-master
         - docker push ${REPO}:optee_rpi3_netboot
-        - docker run --name $NETBOOT_CONT_NME -d ${REPO}:optee_rpi3_netboot
+        - docker stop $NETBOOT_CONT_NME; docker rm $NETBOOT_CONT_NME
+        - docker run --name $NETBOOT_CONT_NME -itd ${REPO}:optee_rpi3_netboot
         - docker wait $NETBOOT_CONT_NME
         - sudo docker cp $NETBOOT_CONT_NME:${ROOTFS_DIR}/${ROOTFS_FILE} $CI_PROJECT_DIR/${ROOTFS_FILE}
     artifacts:
