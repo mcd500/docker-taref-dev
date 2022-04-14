@@ -69,7 +69,7 @@ taref-dev-optee_rpi3_netboot:
     variables:
         BRANCH: teep-master
     tags:
-        - fast-shells
+        - shell117
     script:
         - docker pull aistcpsec/tee-dev:optee-3.10.0
         - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:optee_rpi3_netboot ./optee_rpi3_netboot/teep-master
@@ -79,6 +79,8 @@ taref-dev-optee_rpi3_netboot:
         - docker run --name $NETBOOT_CONT_NME -itd ${REPO}:optee_rpi3_netboot
 #        - docker wait $NETBOOT_CONT_NME
         - docker cp $NETBOOT_CONT_NME:${ROOTFS_DIR}/${ROOTFS_FILE} $CI_PROJECT_DIR/${ROOTFS_FILE}
+        - docker stop $NETBOOT_CONT_NME || true
+        - docker rm $NETBOOT_CONT_NME || true
     artifacts:
         paths:
             - $CI_PROJECT_DIR/${ROOTFS_FILE}
