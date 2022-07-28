@@ -1,5 +1,5 @@
 variables:
-    REPO: trasioteam/taref-dev
+    REPO: aistcpsec/taref-dev
     TA_REF_DOCS_DIR: /home/user/ta-ref/docs
     TA_REF_PDF: ta-ref.pdf
     TA_REF_SPEC_PDF: ta-ref-spec.pdf
