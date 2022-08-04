@@ -9,6 +9,10 @@ variables:
     ROOTFS_FILE: rootfs.cpio.gz
     NETBOOT_CONT_NME: optee-netboot-container
 
+stages:
+    - build
+    - trigger
+
 before_script:
     - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASSWD}
 
@@ -17,6 +21,7 @@ taref-dev-doxygen:
         BRANCH: teep-master
     tags:
         - fast-shells
+    stage: build
     script:
         - docker pull aistcpsec/tee-distro-dev:doxygen-20.04
         - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:doxygen ./doxygen/teep-master
@@ -40,6 +45,7 @@ taref-dev-sgx:
         BRANCH: teep-master
     tags:
         - fast-shells
+    stage: build
     script:
         - docker pull aistcpsec/tee-dev:sgx-2.10
         - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:sgx ./sgx/teep-master
@@ -50,6 +56,7 @@ taref-dev-optee:
         BRANCH: teep-master
     tags:
         - fast-shells
+    stage: build
     script:
         - docker pull aistcpsec/tee-dev:optee-3.10.0
         - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:optee ./optee/teep-master
@@ -60,6 +67,7 @@ taref-dev-keystone:
         BRANCH: teep-master
     tags:
         - fast-shells
+    stage: build
     script:
         - docker pull aistcpsec/tee-dev:keystone-1.0.0
         - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:keystone ./keystone/teep-master
@@ -70,6 +78,7 @@ taref-dev-optee_rpi3_netboot:
         BRANCH: teep-master
     tags:
         - shell117
+    stage: build
     script:
         - docker pull aistcpsec/tee-dev:optee-3.10.0
         - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:optee_rpi3_netboot ./optee_rpi3_netboot/teep-master
@@ -85,3 +94,12 @@ taref-dev-optee_rpi3_netboot:
         paths:
             - $CI_PROJECT_DIR/${ROOTFS_FILE}
         expire_in: 1 week
+
+trigger_docker-teep-dev:
+    variables:
+        TOKEN: f5b8decb37c0dc31a4a35972ca0cf5
+    stage: trigger
+    tags:
+        - shell117
+    script:
+        - "curl -X POST --fail --retry 5 -F token=${TOKEN} -F ref=main -k https://192.168.100.100/api/v4/projects/133/trigger/pipeline"
