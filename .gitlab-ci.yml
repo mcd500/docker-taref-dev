@@ -24,7 +24,8 @@ taref-dev-doxygen:
     stage: build
     script:
         - docker pull aistcpsec/tee-distro-dev:doxygen-20.04
-        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:doxygen ./doxygen/teep-master
+        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg
+          CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:doxygen ./doxygen/teep-master
         - docker push ${REPO}:doxygen
         - docker run --name $CI_PIPELINE_ID -d ${REPO}:doxygen
         - docker wait $CI_PIPELINE_ID
@@ -48,7 +49,8 @@ taref-dev-sgx:
     stage: build
     script:
         - docker pull aistcpsec/tee-dev:sgx-2.10
-        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:sgx ./sgx/teep-master
+        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg
+          CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:sgx ./sgx/teep-master
         - docker push ${REPO}:sgx
 
 taref-dev-optee:
@@ -59,7 +61,8 @@ taref-dev-optee:
     stage: build
     script:
         - docker pull aistcpsec/tee-dev:optee-3.10.0
-        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:optee ./optee/teep-master
+        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg
+          CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:optee ./optee/teep-master
         - docker push ${REPO}:optee
 
 taref-dev-keystone:
@@ -70,7 +73,8 @@ taref-dev-keystone:
     stage: build
     script:
         - docker pull aistcpsec/tee-dev:keystone-1.0.0
-        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:keystone ./keystone/teep-master
+        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg
+          CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:keystone ./keystone/teep-master
         - docker push ${REPO}:keystone
 
 taref-dev-optee_rpi3_netboot:
@@ -81,7 +85,8 @@ taref-dev-optee_rpi3_netboot:
     stage: build
     script:
         - docker pull aistcpsec/tee-dev:optee-3.10.0
-        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:optee_rpi3_netboot ./optee_rpi3_netboot/teep-master
+        - docker build --build-arg BRANCH=${BRANCH} --build-arg DEBUG_DATE=$(date +%s) --build-arg
+          CI_JOB_TOKEN=${CI_JOB_TOKEN} --rm -t ${REPO}:optee_rpi3_netboot ./optee_rpi3_netboot/teep-master
         - docker push ${REPO}:optee_rpi3_netboot
         - docker stop $NETBOOT_CONT_NME || true
         - docker rm $NETBOOT_CONT_NME || true
