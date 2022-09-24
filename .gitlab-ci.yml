@@ -34,6 +34,7 @@ taref-dev-doxygen:
         - docker cp $CI_PIPELINE_ID:${TA_REF_DOCS_DIR}/${TA_REF_HTML} $CI_PROJECT_DIR/${TA_REF_HTML}
         - docker cp $CI_PIPELINE_ID:${TA_REF_DOCS_DIR}/${TA_REF_SPEC_HTML} $CI_PROJECT_DIR/${TA_REF_SPEC_HTML}
     artifacts:
+        name: "ta-ref-docs"
         paths:
             - $CI_PROJECT_DIR/${TA_REF_PDF}
             - $CI_PROJECT_DIR/${TA_REF_SPEC_PDF}
